@@ -13,8 +13,6 @@ func main() {
 }
 
 func callbacktest(a ...interface{}) {
-	fmt.Println("this is callback say:", a)
-	for ai := range a {
-		fmt.Printf("%v", ai)
-	}
+	fmt.Printf("callback params:%v", (a[0]).(net.Conn))
+
 }
