@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backgammon/protocal"
 	"fmt"
 	"lib/user_error"
 	"net"
@@ -12,7 +13,7 @@ func server() {
 	for {
 		connection, err := ln.Accept()
 		user_error.Check_error(err, user_error.ERROR)
-		go worker(connection, contentProccessor)
+		go worker(connection, protocal.Enter)
 	}
 }
 
@@ -26,7 +27,7 @@ func worker(conn net.Conn, delegation func(cntnt []byte)) {
 	length, err := conn.Read(buffer[0:])
 	user_error.Check_error(err, user_error.ERROR)
 	delegation(buffer[0:length])
-	go wipeAss(conn)
+	defer wipeAss(conn)
 }
 
 func wipeAss(conn net.Conn) {
