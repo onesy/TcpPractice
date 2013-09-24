@@ -22,11 +22,11 @@ func contentProccessor(cntnt []byte) {
 	fmt.Printf("Scntn:%s", Scntnt)
 }
 
-func worker(conn net.Conn, delegation func(cntnt []byte)) {
+func worker(conn net.Conn, delegation func(con net.Conn, cntnt []byte)) {
 	var buffer [512]byte
 	length, err := conn.Read(buffer[0:])
 	user_error.Check_error(err, user_error.ERROR)
-	delegation(buffer[0:length])
+	delegation(conn, buffer[0:length])
 	defer wipeAss(conn)
 }
 
